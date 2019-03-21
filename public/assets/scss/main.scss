@@ -1,0 +1,126 @@
+@import 'vars';
+@import 'fonts';
+
+.tg-adapt-img {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.tg-profile-img {
+    width: 84px; height: 84px;
+}
+
+.tg-banner-cover {
+    transition: background 0.35s linear;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+
+    text-align: center;
+}
+
+.tg-banner-con {
+    width: 100%; 
+    height: 256px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    transition: 0.25s filter ease-out;
+    &:hover {
+        .tg-banner-cover {
+            background-color: rgba(0,0,0,0.6);
+        }
+        .tg-card-text {
+            opacity: 1;
+        }
+    }
+}
+
+.tg-card-text {
+    display: inline-block;
+    margin-top:8px;
+    opacity: 0;
+    color: white;
+    transition: 0.35s opacity ease-in-out;
+    text-shadow: 1px 2px 5px gray;
+}
+
+
+.tg-logo {
+    width: 84px;
+    height: 72px;
+    background-image: url('/assets/logo/logo-sm.png');
+    background-size: contain;
+}
+
+
+/*BOOTSTRAP & LAYOUT MODS*/
+
+.card {
+    background-color: $lighter;
+    border:0;
+}
+
+.card:hover {
+    box-shadow: 0 6px 12px -8px $darkest;
+    transform: translate(0,-4px);
+    z-index:9;
+}
+
+.tg-acc:hover {
+    transform: translate(0,-2px);
+    box-shadow: 0 4px 12px -3px #0D1317;
+    z-index:10;
+}
+
+
+/*DESIGN ELEMENTS, COLORS*/
+
+body {
+    background-color: $lightest;
+}
+
+.tg-logotext {
+    color: #081F2A;
+}
+
+.tg-logotext span {
+    color: #73a569;
+}
+
+.tg-blue-vsep-50 {
+    height: 1px;
+    width: 50%;
+    background-image: linear-gradient(to right, transparent 0%, $accent1 40%, $accent1 60% , transparent 100%);
+}
+
+.tg-black-vsep-50 {
+    height: 1px;
+    width: 50%;
+    background-image: linear-gradient(to right, transparent 0%, $darkest 40%, $darkest 60% , transparent 100%);
+}
+
+a {
+    color: $accent2;
+}
+
+a:hover {
+    color: $accent2hv;
+}
+
+
+.tg-acc {
+    background-color: $light;
+    border-radius: 0;
+
+}
+
+.collapse {
+    box-shadow: inset 0 -7px 10px -12px #0D1317;
+}
+
+.collapse .card-body {
+    
+}

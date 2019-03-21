@@ -7,41 +7,60 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.0/css/all.css" integrity="sha384-Mmxa0mLqhmOeaE8vgOSbKacftZcsNYDjQzuCOm6D02luYSzBG8vpaOykv9lFQ51Y" crossorigin="anonymous">
+        <link rel="stylesheet" href="/assets/css/main.css">
         <title>{{urltitle}}</title>
     </head>
     <body>
         {% include 'nav_top.html.twig' %}
 
-        <section class="tg-grid">
+        <section>
             <div class="container">
                 <div class="row">
                     {% for game in tggames.games %}
-                        <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" src="{{game.image}}" alt="Game photo">
-                            <div class="card-body">
-                                <h5 class="card-title">{{game.name}}</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <div class="col-md-4 p-2 card">
+                            <div class="card-img-top tg-banner-con tg-adapt-img" style="background-image: url('{{game.image}}');">
+                                <div class="tg-banner-cover">
+                                    <h5 class="card-title text-center tg-card-text">{{game.name}}</h5>
+                                </div>
                             </div>
+                                <div class="tg-black-vsep-50 mb-3 mt-2 mx-auto"></div>
                             <ul class="list-group list-group-flush">
                                 {% if game.gamers is defined %}
                                     <!--Accordion wrapper-->
                                     <div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="false">
                                         {% for player in game.gamers %}
                                             <!-- Accordion card -->
-                                            <div class="card">
-                                                <div class="card-header" role="tab" id="headingOne{{player.id}}">
-                                                    <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne{{player.id}}" aria-expanded="true"
-                                                       aria-controls="collapseOne{{player.id}}">
-                                                        <h5 class="mb-0">
-                                                            {{player.name}} <i class="fas fa-angle-down rotate-icon"></i>
-                                                        </h5>
+                                            <div class="card tg-acc">
+                                                <div class="card-header" role="tab" id="headingOne{{game.id}}{{player.id}}">
+                                                    <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne{{game.id}}{{player.id}}" aria-expanded="true"
+                                                       aria-controls="collapseOne{{game.id}}{{player.id}}">
+                                                        <div class="mb-0">
+                                                            
+                                                            <div class="d-flex justify-content-end align-items-center">
+                                                                <div class="rounded d-inline mr-2 tg-adapt-img tg-profile-img" style="background-image: url('{{player.image}}');"></div>
+                                                                <h5 class="mb-0">
+                                                                    <strong>{{player.position}}</strong>
+                                                                    {{player.name}}
+                                                                </h5>
+                                                                <div class="ml-auto">
+                                                                    <img src="{{player.flag}}"> <i class="fas fa-caret-down"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
                                                     </a>
                                                 </div>
 
-                                                <div id="collapseOne{{player.id}}" class="collapse" role="tabpanel" aria-labelledby="headingOne{{player.id}}" data-parent="#accordionEx">
-                                                    <div class="card-body">
-                                                        {{player.bio}}
+                                                <div id="collapseOne{{game.id}}{{player.id}}" class="collapse" role="tabpanel" aria-labelledby="headingOne{{game.id}}{{player.id}}" data-parent="#accordionEx">
+                                                    <div class="card-body mx-3">
+                                                        
+                                                        <p>{{player.bio}}</p>
+                                                        <p>Server: <strong>{{player.server}}</strong></p>
+                                                        <div class="d-flex justify-content-center">
+                                                            <a role="button" class="btn btn-outline-info mx-1" href="{{player.youtube}}"><i class="fab fa-youtube"></i></a>
+                                                            <a role="button" class="btn btn-outline-info mx-1" href="{{player.twitch}}"><i class="fab fa-twitch"></i></a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
