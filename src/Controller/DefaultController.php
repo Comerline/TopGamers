@@ -1,37 +1,37 @@
 <?php
-
-// src/Controller/LuckyController.php
-
 namespace App\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-
+use App\Services\GamerManager;
+/**
+ * The only controller needed
+ */
 class DefaultController extends AbstractController {
-
-    public function number() {
-
-        $number = random_int(0, 100);
-
-        return $this->render('lucky/number.html.twig', [
-                    'number' => $number,
-        ]);
-    }
-
     /**
      * Matches the site base dir
      * @Route("/", name="tg_dashboard")
      */
     public function index() {
-
-        //Get the game data from the api
-        $linkenv = getenv('TG_JSON_ALLGAMES');
-        $json = file_get_contents($linkenv);
-        $gameobj = json_decode($json, true);
+        
+        $gameobj = new GamerManager();
+        $json = $gameobj->readGamers();
+        
         $properties = ['urltitle' => 'TopGamers Dashboard',
-            'tggames' => $gameobj];
+            'tggames' => $json];
         return $this->render('dashboard.html.twig', $properties);
+    }
+    
+    
+    
+    
+    
+    /**
+     * Deletes local api cache under certain conditions
+     * @Route("/deletecache", name="tg_delcache")
+     */
+    public function deletecache() {
+        
     }
 
 }

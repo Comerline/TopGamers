@@ -1,5 +1,4 @@
 @import 'vars';
-@import 'fonts';
 
 .tg-adapt-img {
     background-repeat: no-repeat;
@@ -7,18 +6,27 @@
     background-position: center;
 }
 
+
 .tg-profile-img {
-    width: 84px; height: 84px;
+    width: 64px; height: 64px;
 }
 
-.tg-banner-cover {
-    transition: background 0.35s linear;
-    background-color: transparent;
-    width: 100%;
-    height: 100%;
-
-    text-align: center;
+@media (min-width: 768px) {
+    .tg-profile-img {
+        width: 48px; height: 48px;
+    }
+    .tg-flag {
+        width: 24px;
+    }
 }
+
+@media (min-width: 992px) {
+    .tg-profile-img {
+        width: 64px; height: 64px;
+    }
+}
+
+
 
 .tg-banner-con {
     width: 100%; 
@@ -38,13 +46,28 @@
     }
 }
 
+.tg-banner-cover {
+    transition: background 0.35s linear;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+
 .tg-card-text {
-    display: inline-block;
-    margin-top:8px;
     opacity: 0;
     color: white;
     transition: 0.35s opacity ease-in-out;
-    text-shadow: 1px 2px 5px gray;
+    text-shadow: 1px 2px 5px $darkest;
 }
 
 
@@ -60,21 +83,17 @@
 
 .card {
     background-color: $lighter;
-    border:0;
+    border: 1px solid $light;
+    transition: 0.2s box-shadow ease-in;
+    transition: 0.25s border ease-in-out; 
+    &:hover {
+        box-shadow: 0 6px 12px -8px $darkest;
+        z-index:9;
+        border: 1px solid $lightergray;
+    }
+    
+    box-sizing: border-box !important;
 }
-
-.card:hover {
-    box-shadow: 0 6px 12px -8px $darkest;
-    transform: translate(0,-4px);
-    z-index:9;
-}
-
-.tg-acc:hover {
-    transform: translate(0,-2px);
-    box-shadow: 0 4px 12px -3px #0D1317;
-    z-index:10;
-}
-
 
 /*DESIGN ELEMENTS, COLORS*/
 
@@ -96,25 +115,27 @@ body {
     background-image: linear-gradient(to right, transparent 0%, $accent1 40%, $accent1 60% , transparent 100%);
 }
 
-.tg-black-vsep-50 {
-    height: 1px;
-    width: 50%;
-    background-image: linear-gradient(to right, transparent 0%, $darkest 40%, $darkest 60% , transparent 100%);
-}
-
 a {
     color: $accent2;
 }
 
 a:hover {
     color: $accent2hv;
+    text-decoration: none;
 }
 
 
 .tg-acc {
-    background-color: $light;
-    border-radius: 0;
+    background-color: $gray;
 
+    border-radius: 3.5px !important;
+    
+    &:hover {
+        border: 1px solid $accent2hv;
+        box-shadow: 0px 1px 1px 0px $accent2hv;
+    }
+    transition: 0.2s border ease-in !important;
+    transition: 0.2s box-shadow ease-in !important;
 }
 
 .collapse {

@@ -1,7 +1,3 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
-
-app_lucky_number:
-    path: /test/number
-    controller: App\Controller\DefaultController::number
