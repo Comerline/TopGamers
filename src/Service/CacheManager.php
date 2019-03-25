@@ -5,25 +5,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-namespace App\Services;
+namespace App\Service;
 
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use App\Classes\JsonHelper;
 
 /**
- * Description of CacheManager
+ * A service object that helps us cache JSON objects on disk.
  *
  * @author dos
  */
 class CacheManager {
     
     var $fs = null;
-    var $onDisk = "tg-cache.json";
+    var $onDisk = null;
     var $tmp = null;
     
-    function __construct($filename = "tg-cache.json") {
-        $this->onDisk = $filename;
+    function __construct() {
+        $this->onDisk = $this->cacheDefaultFile();
         $this->tmp = sys_get_temp_dir().'/';
         $this->fs = new Filesystem();
         
@@ -67,7 +67,8 @@ class CacheManager {
     }
     
     function deleteCache() {
-        return unlink($this->tmp.$this->onDisk);
+        $cacheFile = $this->cacheDefaultFile();
+        return unlink($this->tmp.$cacheFile);
     }
     
     function writeCacheFile($json) {
@@ -79,6 +80,15 @@ class CacheManager {
             return json_decode(file_get_contents($this->tmp.$this->onDisk), true);
         }
         
+    }
+    
+    
+    private function cacheDefaultFile() {
+        $currFilename = getenv('TG_ADMIN_CACHEFILE');
+        if ($currFilename == null) {
+            $currFilename = "tg-cache.json";
+        }
+        return $currFilename;
     }
     
 }

@@ -4,7 +4,7 @@
 {% block content %}
         <section>
             <div class="container">
-                <div class="row">
+                <div class="masonry-wrap clearfix">
                     {% if tggames == false %}
                         <div class="col-md-12">
                             <div class="alert alert-warning" role="alert">
@@ -13,7 +13,8 @@
                         </div>
                     {% else %}    
                     {% for game in tggames.games %}
-                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 masonry-sizer"></div>
+                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 masonry-item">
                         <div class="card my-3 pb-1">
                             <div class="card-img-top tg-banner-con tg-adapt-img mb-3" style="background-image: url('{{game.image}}');">
                                 <div class="tg-banner-cover">
@@ -31,13 +32,21 @@
                                                     <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne{{game.id}}{{player.id}}" aria-expanded="true" aria-controls="collapseOne{{game.id}}{{player.id}}">
                                                         <div class="mb-0">
                                                             <div class="d-flex justify-content-end align-items-center">
-                                                                <div class="rounded d-inline mr-2 tg-adapt-img tg-profile-img" style="background-image: url('{{player.image}}');"></div>
+                                                                {% if player.image is defined and player.image is not null and player.image is not empty%}
+                                                                    <div class="rounded d-inline mr-2 tg-adapt-img tg-profile-img" style="background-image: url('{{player.image}}');"></div>
+                                                                {% endif %}
                                                                 <h5 class="mb-0">
-                                                                    <strong>{{player.position}}</strong>
-                                                                    {{player.name}}
+                                                                    {% if player.position is defined and player.position is not null and player.position is not empty%}
+                                                                        <strong>{{player.position}}</strong>
+                                                                    {% endif %}
+                                                                    {% if player.account is defined and player.account is not null and player.account is not empty%}
+                                                                        {{player.account}}
+                                                                    {% endif %}
                                                                 </h5>
                                                                 <div class="ml-auto">
-                                                                    <img class="tg-flag" src="{{player.flag}}"> <i class="fas fa-caret-down"></i>
+                                                                    {% if player.flag is defined and player.flag is not null and player.flag is not empty%}
+                                                                        <img class="tg-flag" src="{{player.flag}}"> <i class="fas fa-caret-down"></i>
+                                                                    {% endif %}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -46,12 +55,25 @@
                                                 </div>
 
                                                 <div id="collapseOne{{game.id}}{{player.id}}" class="collapse" role="tabpanel" aria-labelledby="headingOne{{game.id}}{{player.id}}" data-parent="#accordionEx">
-                                                    <div class="card-body mx-3 text-white">
-                                                        <p>{{player.bio}}</p>
-                                                        <p>Server: <strong>{{player.server}}</strong></p>
-                                                        <div class="d-flex justify-content-center">
-                                                            <a role="button" class="btn btn-outline-info mx-1" href="{{player.youtube}}"><i class="fab fa-youtube"></i></a>
-                                                            <a role="button" class="btn btn-outline-info mx-1" href="{{player.twitch}}"><i class="fab fa-twitch"></i></a>
+                                                    <div class="card-body mx-3">
+                                                        {% if player.bio is defined and player.bio is not null and player.bio is not empty%}
+                                                            <p>{{player.bio}}</p>
+                                                        {% endif %}
+                                                        {% if player.server is defined and player.server is not null and player.server is not empty%}
+                                                            <p>Server: <strong>{{player.server}}</strong></p>
+                                                        {% endif %}
+                                                        <div class="d-flex justify-content-center flex-column">
+                                                            {% if player.twitch is defined and player.twitch is not null and player.twitch is not empty%}
+                                                                <iframe
+                                                                    src="{{player.twitch}}"
+                                                                    frameborder="none"
+                                                                    scrolling="scrolling"
+                                                                    allowfullscreen="allowfullscreen">
+                                                                </iframe>
+                                                            {% endif %}
+                                                            {% if player.youtube is defined and player.youtube is not null and player.youtube is not empty%}
+                                                                <a role="button" class="btn btn-danger mx-2 mt-2 text-white" href="{{player.youtube}}"><i class="fab fa-youtube"> YouTube</i></a>
+                                                            {% endif %}
                                                         </div>
                                                     </div>
                                                 </div>
