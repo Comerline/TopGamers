@@ -9,7 +9,7 @@ namespace App\Classes;
  */
 class JsonHelper {
 
-    function jsonValidator($data = null) {
+    static function jsonValidator($data = null) {
         if (!empty($data)) {
             json_decode($data);
             return (json_last_error() === JSON_ERROR_NONE);

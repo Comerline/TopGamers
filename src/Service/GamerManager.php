@@ -49,7 +49,7 @@ class GamerManager {
         $cacheExists = $this->getCache()->cacheExists();
         $cacheAgeValid = $this->getCache()->checkAgeValid();
         $cacheIsLegitimate = $this->getCache()->cacheIsLegitimate();
-        $cacheExists = false;
+        
         if ($cacheExists && $cacheAgeValid && $cacheIsLegitimate) {
             $jsonReturn = $this->readFromCache();
         } else {
@@ -76,25 +76,34 @@ class GamerManager {
             foreach ($game['gamers'] as $player) {
                 //players of each game
                 $newplayer = $player;
-                if ($player['twitch'] != null && !empty($player['twitch'])) {
-                    $twitchLink = $player['twitch'];
-                    if (strpos($twitchLink, 'www.twitch.tv') !== false) {
-                        $fwdslash = strrpos($twitchLink, "/");
-                        $username = substr($twitchLink, ($fwdslash + 1));
-                        $newplayer['twitch'] = "https://player.twitch.tv/?channel=" . $username;
-                    } else if (strpos($twitchLink, 'player.twitch.tv/?channel=') !== false) {
-                        continue;
-                    } else {
-                        unset($newplayer['twitch']);
-                    }
-                }
+                $newplayer['twitch'] = $this->cleanLink($player['twitch']);
                 $newplayers[] = $newplayer;
             }
             $oriJson['games'][$key]['gamers'] = $newplayers;
         }
-
-
         return $oriJson;
+    }
+    
+    
+    
+    private function cleanLink($link) {
+        
+        $returning = $link;
+        
+        if ($link != null && !empty($link)) {
+            $twitchLink = $link;
+            if (strpos($twitchLink, 'www.twitch.tv') !== false) {
+                $fwdslash = strrpos($twitchLink, "/");
+                $username = substr($twitchLink, ($fwdslash + 1));
+                $returning = "https://player.twitch.tv/?channel=" . $username;
+            } else if (strpos($twitchLink, 'player.twitch.tv/?channel=') !== false) {
+                //continue;
+            } else {
+                $returning = null;
+            }
+        }
+        
+        return $returning;
     }
 
 }
