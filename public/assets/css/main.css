@@ -155,7 +155,10 @@ a.visibility-mod {
     display: block;
     height: auto !important;
     visibility: visible; } }
+.tg-footerlogo {
+  height: 42px; }
+
 .tg-footericon {
-  font-size: 45px; }
+  font-size: 21px; }
 
 /*# sourceMappingURL=main.css.map */
