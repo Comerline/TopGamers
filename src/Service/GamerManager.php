@@ -52,7 +52,9 @@ class GamerManager {
         
         if ($cacheExists && $cacheAgeValid && $cacheIsLegitimate) {
             $jsonReturn = $this->readFromCache();
-        } else {
+        } 
+        
+        if(empty($jsonReturn)) {
             $json = $this->readFromUrl();
             $this->getCache()->writeCacheFile($json);
             $jsonReturn = $json;
