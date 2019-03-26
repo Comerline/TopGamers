@@ -66,12 +66,49 @@ use App\Classes\JsonHelper
 Class used for certain json-related tasks. Currently stores a single function used to check if a JSON string is valid.
 
 #### 2.3.2 Services
-##### 2.3.2.1 
+##### 2.3.2.1 CacheManager
+```php
+use App\Service\CacheManager
+```
+This class uses the Filesystem component. It handles most of the operations on the cache file.
+The cache file is created in the temporary files folder (may vary depending on your OS and systemd)
+The constructor instances the Filesystem, prepares the temporary foler and stores the default cache filename.
+Our manager includes several validations, if the file exists, if file is older than a day, and if its a valid JSON.
+It also lets us read, write, get modified time, and delete the cache file.
+This class connects to JsonHelper and is mostly used by GamerManager.
 
+##### 2.3.2.2 GamerManager
+```php
+use App\Service\GamerManager
+```
+This class is tasked to read our gamers from different sources, and filter out their data.
+The constructor stores an instance of our CacheManager.
+GamerManager is accessed via readGamers() which then checks if our cached JSON meets the requirements stated above in 2.3.2.1.
+Depending on the test, it will readfromUrl(), and cache the response, or read the cached file.
+There is also a small filter that will correct gamers' Twitch links and convert them to player.twitch.tv.
+
+#### 2.3.3 Controllers
+##### 2.3.3.1 DefaultController
+This is the controller that recieves JSON and renders them on our dashboard.html.twig template. Mu poquitito.
+##### 2.3.3.2 AdminController
+This controller currently stores our cache deletion route with a secret pass.
+
+## Deployment
+TO-DO: Add additional notes about how to deploy this on a live system
 
 ## Contributing
 Clone whatever you like.
 Pull requests are welcome. For any changes, please open an issue first to discuss what you would like to change.
 
+## Authors
+* **Imanol Romera Lockhart** - *Working hard, memes* - [superwave1999](https://github.com/superwave1999)
+* **Alejandro Lucena Archilla** - *Supervising, complaining* - [Comerline](https://github.com/Comerline)
+
+## Made With
+* [PHP 7.2](https://www.php.net/) - The programming language used
+* [Symfony 4.2](https://symfony.com/) - The framework
+* [Bootstrap 4](https://getbootstrap.com/) - CSS layout helper
+* [NetBeans 8.2](https://netbeans.org/) - Original development IDE
+
 ## License
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT](https://choosealicense.com/licenses/mit/), read license.md for more information.
