@@ -70,7 +70,7 @@ class GamerManager {
     }
 
     //Filters
-    private function filterJson($oriJson) {        
+    private function filterJson($oriJson) {
         foreach ($oriJson['games'] as $key => $game) {
             $newplayers = [];
             foreach ($game['gamers'] as $player) {
@@ -78,22 +78,21 @@ class GamerManager {
                 $newplayer = $player;
                 if ($player['twitch'] != null && !empty($player['twitch'])) {
                     $twitchLink = $player['twitch'];
-                    if (strpos( $twitchLink, 'www.twitch.tv' ) !== false) {
-                        $fwdslash = strrpos($twitchLink,"/");
-                        $username = substr($twitchLink, ($fwdslash+1));
+                    if (strpos($twitchLink, 'www.twitch.tv') !== false) {
+                        $fwdslash = strrpos($twitchLink, "/");
+                        $username = substr($twitchLink, ($fwdslash + 1));
                         $newplayer['twitch'] = "https://player.twitch.tv/?channel=" . $username;
-                    } else if (strpos( $twitchLink, 'player.twitch.tv/?channel=' ) !== false) {
+                    } else if (strpos($twitchLink, 'player.twitch.tv/?channel=') !== false) {
                         continue;
                     } else {
                         unset($newplayer['twitch']);
                     }
-
                 }
                 $newplayers[] = $newplayer;
             }
             $oriJson['games'][$key]['gamers'] = $newplayers;
         }
-        
+
 
         return $oriJson;
     }

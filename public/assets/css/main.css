@@ -144,6 +144,7 @@ a {
 .collapse {
   box-shadow: inset 0 -7px 10px -12px #081F2A; }
 
+/* Collapse visibility mod */
 a.visibility-mod {
   visibility: visible; }
   @media (min-width: 768px) {
@@ -155,6 +156,7 @@ a.visibility-mod {
     display: block;
     height: auto !important;
     visibility: visible; } }
+/* Footerstuff */
 .tg-footerlogo {
   height: 42px; }
 

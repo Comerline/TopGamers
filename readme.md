@@ -6,11 +6,19 @@ TopGamers is a website designed to rank the most viewed Twitch streamers support
 
 It is built with PHP7 and Symfony 4.2 via composer.
 Twig and Filesystem extensions added to Symfony.
-It reads JSON data provided by [api.topgamers.me](https://api.topgamers.me) .
+It reads JSON data provided by another server (also running Symfony).
 Includes a livestream player.
 The development team added a caching system for the recieved JSON data.
 This cache can be cleaned using /deletecahce route with a secret code to authorise.
 CSS development handled by SASS
+
+### Made With
+* [PHP 7.2](https://www.php.net/) - The programming language used
+* [Symfony 4.2](https://symfony.com/) - The framework
+* [Bootstrap 4](https://getbootstrap.com/) - CSS layout helper
+* [NetBeans 8.2](https://netbeans.org/) - Original development IDE
+* [Masonry 4.2](https://masonry.desandro.com) - Brilliant masonry library
+
 
 ## 1. Creation process
 ```bash
@@ -103,12 +111,6 @@ Pull requests are welcome. For any changes, please open an issue first to discus
 ## Authors
 * **Imanol Romera Lockhart** - *Working hard, memes* - [superwave1999](https://github.com/superwave1999)
 * **Alejandro Lucena Archilla** - *Supervising, complaining* - [Comerline](https://github.com/Comerline)
-
-## Made With
-* [PHP 7.2](https://www.php.net/) - The programming language used
-* [Symfony 4.2](https://symfony.com/) - The framework
-* [Bootstrap 4](https://getbootstrap.com/) - CSS layout helper
-* [NetBeans 8.2](https://netbeans.org/) - Original development IDE
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/), read license.md for more information.
