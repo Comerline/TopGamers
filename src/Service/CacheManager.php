@@ -1,17 +1,9 @@
 <?php
 
-// src/Services/CacheManager.php
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace App\Service;
 
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
-use App\Classes\JsonHelper;
+use App\Utils\JsonHelper;
 
 /**
  * A service object that helps us cache JSON objects on disk.
@@ -30,11 +22,18 @@ class CacheManager {
         $this->fs = new Filesystem();
     }
 
+    /**
+     * Returns cache filename
+     * @return string
+     */
     function getCacheFName() {
         return $this->onDisk;
     }
 
-    //Validity
+    /**
+     * Checks if cache is newer than a day
+     * @return boolean
+     */
     function checkAgeValid() {
         if (time() - $this->getCacheLastUpdate() > 24 * 3600) {
             return false;
@@ -43,21 +42,35 @@ class CacheManager {
         }
     }
 
+    /**
+     * Checks if the cache file exists
+     * @return boolean
+     */
     function cacheExists() {
         return $this->fs->exists($this->tmp . $this->onDisk);
     }
 
+    /**
+     * checks if the cache file is good JSON
+     * @return boolean
+     */
     function cacheIsLegitimate() {
         return JsonHelper::jsonValidator(json_encode($this->readCacheFile()));
     }
 
-    //FS operations
+    /**
+     * Sets the new cache file name, transferring data
+     */
     function setCacheFName($newname) {
         $this->fs->rename($this->tmp . $this->onDisk, $this->tmp . $newname);
         $this->onDisk = $newname;
     }
 
-    function getCacheLastUpdate() {
+    /**
+     * Reads modified time on our json cache file
+     * @return time
+     */
+    private function getCacheLastUpdate() {
         if ($this->cacheExists()) {
             return filemtime($this->tmp . $this->onDisk);
         } else {
@@ -65,24 +78,39 @@ class CacheManager {
         }
     }
 
+    /**
+     * Deletes the cache file
+     * @return boolean
+     */
     function deleteCache() {
         $cacheFile = $this->cacheDefaultFile();
         return unlink($this->tmp . $cacheFile);
     }
 
+    /**
+     * Writes new cache file
+     */
     function writeCacheFile($json) {
         file_put_contents($this->tmp . $this->onDisk, json_encode($json));
     }
 
+    /**
+     * Reads content from cache file
+     * @return json
+     */
     function readCacheFile() {
         if ($this->cacheExists()) {
             return json_decode(file_get_contents($this->tmp . $this->onDisk), true);
         }
     }
 
+    /**
+     * If envvar
+     * @return string
+     */
     private function cacheDefaultFile() {
         $currFilename = getenv('TG_ADMIN_CACHEFILE');
-        if ($currFilename == null) {
+        if (empty($currFilename)) {
             $currFilename = "tg-cache.json";
         }
         return $currFilename;

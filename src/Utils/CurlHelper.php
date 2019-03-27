@@ -1,14 +1,18 @@
 <?php
 
-namespace App\Classes;
+namespace App\Utils;
 
 /**
  * Extra classes for cURL
- *
  * @author dos
  */
 class CurlHelper {
 
+    /**
+     * Checks if an url is accessible
+     * @param string $url
+     * @return boolean
+     */
     static function urlExists($url) {
         $handle = curl_init($url);
         if (false === $handle) {
@@ -21,7 +25,6 @@ class CurlHelper {
         curl_setopt($handle, CURLOPT_NOBODY, true);
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, false);
         $connectable = curl_exec($handle);
-        ##print $connectable;
         curl_close($handle);
         return $connectable;
     }

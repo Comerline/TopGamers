@@ -1,17 +1,18 @@
-{# templates/base.html.twig #}
 {% extends "base.html.twig" %}
 
 {% block content %}
     <section>
         <div class="container p-0">
-            <div class="masonry-wrap clearfix">
-                {% if tggames == false %}
-                    <div class="col-md-12">
-                        <div class="alert alert-warning" role="alert">
-                            <strong>Notice:</strong> No data obtained from server.
-                        </div>
+            {% if tggames is null or tggames is not defined or tggames.games is null or tggames.games is not defined or tggames is empty or tggames.games is empty%}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-warning" role="alert">
+                        <strong>Notice:</strong> No data obtained from server.
                     </div>
-                {% else %}    
+                </div>
+            </div>
+            {% else %} 
+            <div class="masonry-wrap clearfix">
                     {% for game in tggames.games %}
                         <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 masonry-sizer"></div>
                         <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 masonry-item">
@@ -95,8 +96,8 @@
                             </div>
                         </div>
                     {% endfor %}
-                {% endif %}
             </div>
+            {% endif %}
         </div>
     </section>
 {% endblock %}

@@ -19,8 +19,23 @@ CSS development handled by SASS
 * [NetBeans 8.2](https://netbeans.org/) - Original development IDE
 * [Masonry 4.2](https://masonry.desandro.com) - Brilliant masonry library
 
+### Installation
+Installation is simple, clone the repository into a directory and in the same directory:
+```bash
+composer install
+```
+
+### Routes
+* / - Our index, the main dashboard
+* /deletecache - Deletes our servers cache file. Has secret get parameter.
+
+### env.local
+* TG_ADMIN_CACHEFILE - System cache file name
+* TG_ADMIN_PASS - /deletecache?pass= passphrase
+* TG_JSON_ALLGAMES - Stores the endpoint url of the API.
 
 ## 1. Creation process
+Our first steps creating this project:
 ```bash
 #create the symfony structure
 composer create-project symfony/website-skeleton src
@@ -31,9 +46,7 @@ composer require twig
 ```
 
 ## 2. Structure
-
 As per usual Symfony projects, we only have to look at certain folders:
-
 ```bash
 /public #JavaScript, images and SCSS
 /templates #Twig files

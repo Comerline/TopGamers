@@ -16,9 +16,7 @@ class DefaultController extends AbstractController {
      * @Route("/", name="tg_dashboard")
      */
     public function index(GamerManager $gm) {
-
         $json = $gm->readGamers();
-
         $properties = ['urltitle' => 'TopGamers Dashboard',
             'tggames' => $json];
         return $this->render('dashboard.html.twig', $properties);

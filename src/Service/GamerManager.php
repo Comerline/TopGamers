@@ -1,16 +1,9 @@
 <?php
 
-// src/Services/GamerManager.php
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace App\Service;
 
 use App\Service\CacheManager;
-use App\Classes\CurlHelper;
+use App\Utils\CurlHelper;
 
 /**
  * A service object that helps us read our API from different sources.
@@ -25,8 +18,18 @@ class GamerManager {
         $this->cache = $cm;
     }
 
-    //Functions that read data
-    function readFromUrl() {
+    /**
+     * Cache access
+     */
+    function getCache() {
+        return $this->cache;
+    }
+
+    /**
+     * Reads data from our API server
+     * @return json
+     */
+    private function readFromUrl() {
         $linkenv = getenv('TG_JSON_ALLGAMES');
         if (CurlHelper::urlExists($linkenv)) {
             $req = curl_init($linkenv);
@@ -42,6 +45,19 @@ class GamerManager {
         return $jsonReturn;
     }
 
+    /**
+     * Reads data from our cache file
+     * @return json
+     */
+    private function readFromCache() {
+        return $this->getCache()->readCacheFile();
+    }
+
+    /**
+     * Reads game data from multiple sources.
+     * Contains the conditions to read from cache or not.
+     * @return json
+     */
     function readGamers() {
         $jsonReturn = null;
 
@@ -49,12 +65,12 @@ class GamerManager {
         $cacheExists = $this->getCache()->cacheExists();
         $cacheAgeValid = $this->getCache()->checkAgeValid();
         $cacheIsLegitimate = $this->getCache()->cacheIsLegitimate();
-        
+
         if ($cacheExists && $cacheAgeValid && $cacheIsLegitimate) {
             $jsonReturn = $this->readFromCache();
-        } 
-        
-        if(empty($jsonReturn)) {
+        }
+
+        if (empty($jsonReturn)) {
             $json = $this->readFromUrl();
             $this->getCache()->writeCacheFile($json);
             $jsonReturn = $json;
@@ -62,16 +78,11 @@ class GamerManager {
         return $jsonReturn;
     }
 
-    //Cache access
-    function getCache() {
-        return $this->cache;
-    }
-
-    function readFromCache() {
-        return $this->getCache()->readCacheFile();
-    }
-
-    //Filters
+    /**
+     * Itarates through gamer data.
+     * @param json $oriJson
+     * @return json
+     */
     private function filterJson($oriJson) {
         foreach ($oriJson['games'] as $key => $game) {
             $newplayers = [];
@@ -85,13 +96,16 @@ class GamerManager {
         }
         return $oriJson;
     }
-    
-    
-    
+
+    /**
+     * Filters out bad twitch player links
+     * @param json $link
+     * @return json
+     */
     private function cleanLink($link) {
-        
+
         $returning = $link;
-        
+
         if ($link != null && !empty($link)) {
             $twitchLink = $link;
             if (strpos($twitchLink, 'www.twitch.tv') !== false) {
@@ -99,12 +113,12 @@ class GamerManager {
                 $username = substr($twitchLink, ($fwdslash + 1));
                 $returning = "https://player.twitch.tv/?channel=" . $username;
             } else if (strpos($twitchLink, 'player.twitch.tv/?channel=') !== false) {
-                //continue;
+                //do nothing;
             } else {
                 $returning = null;
             }
         }
-        
+
         return $returning;
     }
 
