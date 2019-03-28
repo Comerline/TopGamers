@@ -21,7 +21,7 @@
                                     <div class="tg-banner-cover">
                                         <h5 class="card-title text-center tg-card-text m-md-2 m-0">{{game.name}}</h5>
                                         <a class="visibility-mod justify-self-end text-white" data-toggle="collapse" href="#collapseGame{{game.id}}" aria-expanded="true" aria-controls="collapseGame{{game.id}}">
-                                            <p class="m-0">Players <i class="fas fa-caret-down"></i></p>
+                                            <p class="m-0">Players <i class="arrow fas fa-caret-down"></i></p>
                                         </a>
                                     </div>
                                 </div>
@@ -51,9 +51,9 @@
                                                                                 {{player.account}}
                                                                             {% endif %}
                                                                         </h5>
-                                                                        <div class="ml-auto">
+                                                                        <div class="ml-auto twitchbadge">
                                                                             {% if player.flag is defined and player.flag is not null and player.flag is not empty%}
-                                                                                <img class="tg-flag" src="{{player.flag}}"> <i class="fas fa-caret-down"></i>
+                                                                                <img class="tg-flag" src="{{player.flag}}"> <i class="arrow fas fa-caret-down"></i>
                                                                             {% endif %}
                                                                         </div>
                                                                     </div>
@@ -72,15 +72,11 @@
                                                                 {% endif %}
                                                                 <div class="d-flex justify-content-center flex-column">
                                                                     {% if player.twitch is defined and player.twitch is not null and player.twitch is not empty%}
-                                                                        <iframe
-                                                                            src="{{player.twitch}}"
-                                                                            frameborder="none"
-                                                                            scrolling="scrolling"
-                                                                            allowfullscreen="allowfullscreen">
-                                                                        </iframe>
+                                                                        <div class="twplayer" id="twitch-embed{{game.id}}{{player.id}}" data-game='{{game.id}}' data-pid="{{player.id}}" data-player='{{player.twitchid}}'></div>
                                                                     {% endif %}
                                                                     {% if player.youtube is defined and player.youtube is not null and player.youtube is not empty%}
                                                                         <a role="button" class="btn btn-danger mx-2 mt-2 text-white" href="{{player.youtube}}"><i class="fab fa-youtube"> YouTube</i></a>
+                                                                        <p>{{player.twitchid}}</p>
                                                                     {% endif %}
                                                                 </div>
                                                             </div>

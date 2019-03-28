@@ -90,6 +90,7 @@ class GamerManager {
                 //players of each game
                 $newplayer = $player;
                 $newplayer['twitch'] = $this->cleanLink($player['twitch']);
+                $newplayer['twitchid'] = $this->getTwitchId($player['twitch']);
                 $newplayers[] = $newplayer;
             }
             $oriJson['games'][$key]['gamers'] = $newplayers;
@@ -98,7 +99,7 @@ class GamerManager {
     }
 
     /**
-     * Filters out bad twitch player links
+     * Filters out bad twitch player links DEPRECATE?
      * @param json $link
      * @return json
      */
@@ -106,7 +107,7 @@ class GamerManager {
 
         $returning = $link;
 
-        if ($link != null && !empty($link)) {
+        if (!empty($link)) {
             $twitchLink = $link;
             if (strpos($twitchLink, 'www.twitch.tv') !== false) {
                 $fwdslash = strrpos($twitchLink, "/");
@@ -114,6 +115,33 @@ class GamerManager {
                 $returning = "https://player.twitch.tv/?channel=" . $username;
             } else if (strpos($twitchLink, 'player.twitch.tv/?channel=') !== false) {
                 //do nothing;
+            } else {
+                $returning = null;
+            }
+        }
+
+        return $returning;
+    }
+    
+    /**
+     * Get the twitch channel ID for the Javascript player
+     * @param json $link
+     * @return json
+     */
+    private function getTwitchId($link) {
+
+        $returning = $link;
+
+        if (!empty($link)) {
+            $twitchLink = $link;
+            if (strpos($twitchLink, 'www.twitch.tv') !== false) {
+                $fwdslash = strrpos($twitchLink, "/");
+                $username = substr($twitchLink, ($fwdslash + 1));
+                $returning = $username;
+            } else if (strpos($twitchLink, 'player.twitch.tv/?channel=') !== false) {
+                $fwdslash = strrpos($twitchLink, "=");
+                $username = substr($twitchLink, ($fwdslash + 1));
+                $returning = $username;
             } else {
                 $returning = null;
             }

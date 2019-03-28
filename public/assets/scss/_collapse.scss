@@ -9,6 +9,18 @@
     transition: 0.2s box-shadow ease-in !important;
 }
 
+.tg-twitch-color {
+    color: #6441a5;
+}
+
+.arrow {
+    transition: 0.2s transform ease-in-out;
+}
+
+.arrow.rotated {
+    transform: rotate(180deg);
+}
+
 .collapse {
     box-shadow: inset 0 -7px 10px -12px $dark;
 }
