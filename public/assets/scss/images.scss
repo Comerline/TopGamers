@@ -1,0 +1,23 @@
+.tg-adapt-img {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+
+/* Flags and profile images */
+.tg-profile-img {
+    width: 48px; height: 48px;
+}
+
+@media (min-width: 768px) {
+    .tg-flag {
+        width: 24px;
+    }
+}
+
+@media (min-width: 992px) {
+    .tg-profile-img {
+        width: 64px; height: 64px;
+    }
+}

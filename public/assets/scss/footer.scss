@@ -1,0 +1,15 @@
+/* Footerstuff */
+.tg-footerlogo {
+    height: 42px;
+}
+
+.tg-footericon {
+    font-size: 21px;
+}
+
+.text-muted {
+    text-align: center;
+    @media (min-width: 768px) {
+        text-align: left;
+    }
+}

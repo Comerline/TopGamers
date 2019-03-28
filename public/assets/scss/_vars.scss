@@ -4,6 +4,19 @@ $big-font: 'Questrial', sans-serif;
 $med-font: 'Raleway', sans-serif;
 $text-font: 'Lato', sans-serif;
 
+/*COLOR VARS*/
+$lightest: #f8f8f8;
+$lighter: #EFF4F1;
+$light: #E8EDEB;
+$accent1: #3B87AA;
+$accent2: #73A569;
+$accent2hv: #A8C22A;
+$lightestgray: #dee2e6;
+$lightergray: #c1c8d1;
+$gray: #2b4457;
+$dark: #081F2A;
+$darkest: #0D1317;
+
 h1 {
     font-family: $big-font;
 }
@@ -44,15 +57,10 @@ p,span,body{
     font-family: $text-font;
 }
 
-/*COLOR VARS*/
-$lightest: #f8f8f8;
-$lighter: #EFF4F1;
-$light: #E8EDEB;
-$accent1: #3B87AA;
-$accent2: #73A569;
-$accent2hv: #A8C22A;
-$lightestgray: #dee2e6;
-$lightergray: #c1c8d1;
-$gray: #2b4457;
-$dark: #081F2A;
-$darkest: #0D1317;
+a {
+    color: $dark;
+    &:hover {
+        color: $darkest;
+        text-decoration: none;
+    }
+}

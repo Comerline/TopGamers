@@ -1,0 +1,36 @@
+body {
+    background-color: $lightest;
+}
+
+.tg-logotext {
+    color: #081F2A;
+    font-size: 1.25em;
+}
+
+.tg-logotext span {
+    color: #73a569;
+}
+
+.tg-blue-vsep-50 {
+    height: 1px;
+    width: 50%;
+    background-image: linear-gradient(to right, transparent 0%, $accent1 40%, $accent1 60% , transparent 100%);
+}
+
+.tg-logo {
+    width: 52px;
+    height: 46px;
+    background-image: url('/assets/logo/logo-sm.png');
+    background-size: contain;
+}
+
+@media (min-width: 768px) {
+    .tg-logo {
+        width: 84px;
+        height: 72px;
+    }
+
+    .tg-logotext {
+        font-size: 2em;
+    }
+}
