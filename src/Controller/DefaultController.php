@@ -18,6 +18,7 @@ class DefaultController extends AbstractController {
     public function index(GamerManager $gm) {
         $json = $gm->readGamers();
         $properties = ['urltitle' => 'TopGamers Dashboard',
+            'analytics' => getenv('TG_ANALYTICS'),
             'tggames' => $json];
         return $this->render('dashboard.html.twig', $properties);
     }
