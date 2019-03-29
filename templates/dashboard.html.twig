@@ -53,6 +53,9 @@
                                                                             {% endif %}
                                                                         </h5>
                                                                         <div class="ml-auto">
+                                                                            {% if player.twitch is not empty and player.twitchid is not empty%}
+                                                                                <i class="tg-twitch-color fab fa-twitch"></i>
+                                                                            {% endif %}
                                                                             {% if player.flag is defined and player.flag is not null and player.flag is not empty%}
                                                                                 <img class="tg-flag" src="{{player.flag}}"> <i class="arrow fas fa-caret-down"></i>
                                                                             {% endif %}
