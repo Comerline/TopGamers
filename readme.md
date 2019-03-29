@@ -9,7 +9,7 @@ Twig and Filesystem extensions added to Symfony.
 It reads JSON data provided by another server (also running Symfony).
 Includes a livestream player.
 The development team added a caching system for the recieved JSON data.
-This cache can be cleaned using /deletecahce route with a secret code to authorise.
+This cache can be cleaned using /deletecache route with a secret code to authorise.
 CSS development handled by SASS
 
 ### Made With
