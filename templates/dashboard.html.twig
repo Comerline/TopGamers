@@ -4,22 +4,23 @@
     <section>
         <div class="container p-0">
             {% if tggames is null or tggames is not defined or tggames.games is null or tggames.games is not defined or tggames is empty or tggames.games is empty%}
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="alert alert-warning" role="alert">
-                        <strong>Notice:</strong> No data obtained from server.
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-warning" role="alert">
+                            <strong>Notice:</strong> No data obtained from server.
+                        </div>
                     </div>
                 </div>
-            </div>
             {% else %} 
-            <div class="masonry-wrap clearfix">
+                <div class="masonry-wrap clearfix">
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 masonry-sizer"></div>
                     {% for game in tggames.games %}
-                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 masonry-sizer"></div>
                         <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 masonry-item">
                             <div class="card mb-md-3 mt-md-3 mt-sm-2 mb-sm-2 mb-2 pb-0">
                                 <div class="card-img-top tg-banner-con tg-adapt-img mb-md-3 mb-0 mb-sm-1" style="background-image: url('{{game.image}}');">
                                     <div class="tg-banner-cover">
                                         <h5 class="card-title text-center tg-card-text m-md-2 m-0">{{game.name}}</h5>
+
                                         <a class="visibility-mod justify-self-end text-white" data-toggle="collapse" href="#collapseGame{{game.id}}" aria-expanded="true" aria-controls="collapseGame{{game.id}}">
                                             <p class="m-0">Players <i class="arrow fas fa-caret-down"></i></p>
                                         </a>
@@ -32,12 +33,12 @@
                                     <ul class="list-group list-group-flush">
                                         {% if game.gamers is defined %}
                                             <!--Accordion wrapper-->
-                                            <div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="false">
+                                            <div class="accordion md-accordion" id="accordionEx{{game.id}}" role="tablist" aria-multiselectable="false">
                                                 {% for player in game.gamers %}
                                                     <!-- Accordion card -->
                                                     <div class="card tg-acc m-md-2 m-sm-2 m-1">
                                                         <div class="card-header p-2" role="tab" id="headingOne{{game.id}}{{player.id}}">
-                                                            <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne{{game.id}}{{player.id}}" aria-expanded="true" aria-controls="collapseOne{{game.id}}{{player.id}}">
+                                                            <a data-toggle="collapse" data-parent="#accordionEx{{game.id}}" href="#collapseOne{{game.id}}{{player.id}}" aria-expanded="true" aria-controls="collapseOne{{game.id}}{{player.id}}">
                                                                 <div class="mb-0">
                                                                     <div class="d-flex justify-content-end align-items-center">
                                                                         {% if player.image is defined and player.image is not null and player.image is not empty%}
@@ -51,7 +52,7 @@
                                                                                 {{player.account}}
                                                                             {% endif %}
                                                                         </h5>
-                                                                        <div class="ml-auto twitchbadge">
+                                                                        <div class="ml-auto">
                                                                             {% if player.flag is defined and player.flag is not null and player.flag is not empty%}
                                                                                 <img class="tg-flag" src="{{player.flag}}"> <i class="arrow fas fa-caret-down"></i>
                                                                             {% endif %}
@@ -62,7 +63,7 @@
                                                             </a>
                                                         </div>
 
-                                                        <div id="collapseOne{{game.id}}{{player.id}}" class="collapse" role="tabpanel" aria-labelledby="headingOne{{game.id}}{{player.id}}" data-parent="#accordionEx">
+                                                        <div id="collapseOne{{game.id}}{{player.id}}" class="collapse collapse-player" role="tabpanel" aria-labelledby="headingOne{{game.id}}{{player.id}}" data-parent="#accordionEx{{game.id}}">
                                                             <div class="card-body mx-0">
                                                                 {% if player.bio is defined and player.bio is not null and player.bio is not empty%}
                                                                     <p>{{player.bio}}</p>
@@ -71,12 +72,11 @@
                                                                     <p>Server: <strong>{{player.server}}</strong></p>
                                                                 {% endif %}
                                                                 <div class="d-flex justify-content-center flex-column">
-                                                                    {% if player.twitch is defined and player.twitch is not null and player.twitch is not empty%}
-                                                                        <div class="twplayer" id="twitch-embed{{game.id}}{{player.id}}" data-game='{{game.id}}' data-pid="{{player.id}}" data-player='{{player.twitchid}}'></div>
+                                                                    {% if player.twitch is not empty and player.twitchid is not empty%}
+                                                                        <div class="twitch-vars" data-game='{{game.id}}' data-pid="{{player.id}}" data-player='{{player.twitchid}}'></div>
                                                                     {% endif %}
                                                                     {% if player.youtube is defined and player.youtube is not null and player.youtube is not empty%}
                                                                         <a role="button" class="btn btn-danger mx-2 mt-2 text-white" href="{{player.youtube}}"><i class="fab fa-youtube"> YouTube</i></a>
-                                                                        <p>{{player.twitchid}}</p>
                                                                     {% endif %}
                                                                 </div>
                                                             </div>
@@ -92,7 +92,7 @@
                             </div>
                         </div>
                     {% endfor %}
-            </div>
+                </div>
             {% endif %}
         </div>
     </section>
