@@ -10,7 +10,7 @@ $(document).ready( function () {
         transitionDuration: 250
     };
 
-    $('.masonry-wrap').masonry(masoptions);
+    var $masonry = $('.masonry-wrap').masonry(masoptions);
 
     /*
      * Show and hide refresh the chevron
@@ -27,11 +27,11 @@ $(document).ready( function () {
      * Once shown, refresh masonry
      */
     $('.collapse').on('shown.bs.collapse', function (event) {
-        $('.masonry-wrap').masonry(masoptions);
+        $masonry.masonry('layout');
     });
     
     $('.collapse').on('hidden.bs.collapse', function (event) {
-        $('.masonry-wrap').masonry(masoptions);
+        $masonry.masonry('layout');
     });
     
     /*
@@ -44,7 +44,7 @@ $(document).ready( function () {
     
     $('.collapse-player').on('hidden.bs.collapse', function (event) {
         $(event.target).find('.twitch-vars').empty();
-        $('.masonry-wrap').masonry(masoptions);
+        $masonry.masonry('layout');
     });
     
     function twitchInit(target) {
@@ -80,7 +80,7 @@ $(document).ready( function () {
         });
         
         //Refresh masonry if player created
-        $('.masonry-wrap').masonry(masoptions);
+        $masonry.masonry('layout');
        
     }
     
